@@ -1,0 +1,24 @@
+---
+title: "Import data"
+author: "Isaac Verminck"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Vignette Title}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup}
+
+library(knitr)
+
+opts_chunk$set(echo=TRUE,
+               warning=FALSE,
+               message=FALSE,
+               cache=FALSE)
+
+devtools::load_all(here::here())
+
+```
+
