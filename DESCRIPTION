@@ -10,7 +10,8 @@ LazyData: true
 RoxygenNote: 6.0.1
 Imports:
     here,
-    roxygen2
+    roxygen2,
+    readxl
 Suggests: testthat,
     knitr,
     rmarkdown,
