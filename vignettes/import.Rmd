@@ -22,7 +22,6 @@ devtools::load_all(here::here())
 
 ```
 
-
 # Import data
 
 ## Data source

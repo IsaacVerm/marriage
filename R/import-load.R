@@ -46,11 +46,11 @@ download <- function(year, type) {
 select_worksheet <- function(worksheet, year, type) {
   mapping_worksheets <- list(marriage = list("age_group" = "Tab 4",
                                              "year_of_birth" = "Tab 8",
-                                             "age_at_marriage" = "Tab 9"),
+                                             "average_age_at_marriage" = "Tab 9"),
                              divorce = list("age_group" = "Tab 3",
                                             "year_of_birth" = "Tab 8",
                                             "duration" = "Tab 9",
-                                            "age_at_divorce" = "Tab 10"))
+                                            "average_age_at_divorce" = "Tab 10"))
 
   filename <- paste0(type, "_", year, ".xls")
 
@@ -66,4 +66,8 @@ select_worksheet <- function(worksheet, year, type) {
   return(df)
 
 }
+
+worksheet <- select_worksheet(worksheet = "year_of_birth",
+                              year = "2013",
+                              type = "marriage")
 
