@@ -22,3 +22,10 @@ devtools::load_all(here::here())
 
 ```
 
+# Data source
+
+Data on divorces and marriages can be found on the [Statbel site](https://statbel.fgov.be/nl/themas/bevolking/huwelijken-en-echtscheidingen).
+
+Some interesting data sets are:
+
+* 
