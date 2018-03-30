@@ -11,7 +11,11 @@ RoxygenNote: 6.0.1
 Imports:
     here,
     roxygen2,
-    readxl
+    readxl,
+    dplyr,
+    purrr,
+    ggplot2,
+    tidyr
 Suggests: testthat,
     knitr,
     rmarkdown,

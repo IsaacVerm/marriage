@@ -67,7 +67,3 @@ select_worksheet <- function(worksheet, year, type) {
 
 }
 
-worksheet <- select_worksheet(worksheet = "year_of_birth",
-                              year = "2013",
-                              type = "marriage")
-
