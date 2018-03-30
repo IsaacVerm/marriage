@@ -37,15 +37,26 @@ For most data we have the same information for marriages and divorces:
 * nationality
 * profession
 
+For marriages we have data from 2013-2016, for divorces 2012-2016. We'll limit ourselves to 2013-2016
+
 Let's focus on age since a lot of interesting questions immediately come to mind:
 
 * at what age do people marry?
 * at what age do people divorce?
 * what's the age difference between people marrying?
 
-## Load data
+## Download data
 
-```{r load}
+```{r download}
+types <- c("divorce","marriage")
+years <- paste0("201", 3:6)
+
+rep_years <- rep(years, times = length(types))
+rep_types <- rep(types, each = length(years))
+
+purrr::walk2(.x = rep_years,
+             .y = rep_types,
+             ~download(year = .x, type = .y))
 
 ```
 
