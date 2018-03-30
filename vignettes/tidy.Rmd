@@ -54,6 +54,7 @@ There are several issues:
 * people with the same ages can be born in two different years
 * the year in which the data were gathered isn't mentioned explicitly
 * the type of data (divorce or marriage) isn't mentioned explicitly
+* variables are coded as character instead of factors (e.g. region)
 
 We create a function to solve each issue, apply these to each dataframe and then bind all dataframes for each year together.
 Small note: additional data on gender is provided from 2015 on. Making a modification to incorporate this hasn't been done yet so for the moment the focus is on the data 2013-2014.
@@ -76,16 +77,14 @@ tidy_args <- list(worksheet = worksheets,
                   year = rep_years,
                   type = rep_types)
 tidy_dfs <- purrr::pmap(tidy_args,
-                        function(worksheet, year, type) tidy_worksheet(worksheet, year, type)
+                        function(worksheet, year, type) tidy_year_of_birth(worksheet, year, type)
                         )
 
-year_of_birth <- dplyr::bind_rows(tidy_dfs)
+year_of_birth <- bind_together(tidy_dfs)
 
 save(year_of_birth,
      file = paste(data_path, "year_of_birth.RData", sep = "/")
      ) # data_path is object in tidy-year_of_birth.R
 
 ```
-
-
 
