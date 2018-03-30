@@ -83,9 +83,41 @@ opts_chunk<span class="op">$</span><span class="kw">set</span>(<span class="dt">
 
 devtools<span class="op">::</span><span class="kw">load_all</span>(here<span class="op">::</span><span class="kw">here</span>())</code></pre></div>
 <pre><code>## Loading marriage</code></pre>
-<div id="data-source" class="section level1">
-<h1>Data source</h1>
+<pre><code>## Called from: select_worksheet(&quot;duration&quot;, &quot;2013&quot;, &quot;divorce&quot;)
+## debug at /home/rstudio/marriage/R/import-load.R#68: return(df)</code></pre>
+<div id="import-data" class="section level1">
+<h1>Import data</h1>
+<div id="data-source" class="section level2">
+<h2>Data source</h2>
 <p>Data on divorces and marriages can be found on the <a href="https://statbel.fgov.be/nl/themas/bevolking/huwelijken-en-echtscheidingen">Statbel site</a>.</p>
+<p>For most data we have the same information for marriages and divorces:</p>
+<ul>
+<li>muncipality</li>
+<li>age</li>
+<li>civil state</li>
+<li>nationality</li>
+<li>profession</li>
+</ul>
+<p>For marriages we have data from 2013-2016, for divorces 2012-2016. We’ll limit ourselves to 2013-2016</p>
+<p>Let’s focus on age since a lot of interesting questions immediately come to mind:</p>
+<ul>
+<li>at what age do people marry?</li>
+<li>at what age do people divorce?</li>
+<li>what’s the age difference between people marrying?</li>
+</ul>
+</div>
+<div id="download-data" class="section level2">
+<h2>Download data</h2>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">types &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;divorce&quot;</span>,<span class="st">&quot;marriage&quot;</span>)
+years &lt;-<span class="st"> </span><span class="kw">paste0</span>(<span class="st">&quot;201&quot;</span>, <span class="dv">3</span><span class="op">:</span><span class="dv">6</span>)
+
+rep_years &lt;-<span class="st"> </span><span class="kw">rep</span>(years, <span class="dt">times =</span> <span class="kw">length</span>(types))
+rep_types &lt;-<span class="st"> </span><span class="kw">rep</span>(types, <span class="dt">each =</span> <span class="kw">length</span>(years))
+
+purrr<span class="op">::</span><span class="kw">walk2</span>(<span class="dt">.x =</span> rep_years,
+             <span class="dt">.y =</span> rep_types,
+             <span class="op">~</span><span class="kw">download</span>(<span class="dt">year =</span> .x, <span class="dt">type =</span> .y))</code></pre></div>
+</div>
 </div>
 
 

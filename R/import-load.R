@@ -38,6 +38,32 @@ download <- function(year, type) {
 
 }
 
-select_worksheet <- function(worksheet) {
+#' @import readxl
+#' @param year year between 2013 and 2016
+#' @param type divorce or marriage
+#' @param worksheet readable name worksheet
+#' @return dataframe
+select_worksheet <- function(worksheet, year, type) {
+  mapping_worksheets <- list(marriage = list("age_group" = "Tab 4",
+                                             "year_of_birth" = "Tab 8",
+                                             "age_at_marriage" = "Tab 9"),
+                             divorce = list("age_group" = "Tab 3",
+                                            "year_of_birth" = "Tab 8",
+                                            "duration" = "Tab 9",
+                                            "age_at_divorce" = "Tab 10"))
+
+  filename <- paste0(type, "_", year, ".xls")
+
+  load_folder <- paste0(paste(here::here(), "inst", "extdata", sep = "/"),
+                        "/")
+
+  df <- readxl::read_excel(path = paste0(load_folder, filename),
+                   sheet = paste(mapping_worksheets[[type]][[worksheet]],
+                                 year,
+                                 sep = "_")
+                   )
+
+  return(df)
 
 }
+

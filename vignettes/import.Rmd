@@ -47,7 +47,7 @@ Let's focus on age since a lot of interesting questions immediately come to mind
 
 ## Download data
 
-```{r download}
+```{r download, eval = FALSE}
 types <- c("divorce","marriage")
 years <- paste0("201", 3:6)
 
