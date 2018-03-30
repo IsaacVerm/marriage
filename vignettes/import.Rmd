@@ -22,10 +22,32 @@ devtools::load_all(here::here())
 
 ```
 
-# Data source
+
+# Import data
+
+## Data source
 
 Data on divorces and marriages can be found on the [Statbel site](https://statbel.fgov.be/nl/themas/bevolking/huwelijken-en-echtscheidingen).
 
-Some interesting data sets are:
+For most data we have the same information for marriages and divorces:
 
-* 
+* muncipality
+* age
+* civil state
+* nationality
+* profession
+
+Let's focus on age since a lot of interesting questions immediately come to mind:
+
+* at what age do people marry?
+* at what age do people divorce?
+* what's the age difference between people marrying?
+
+## Load data
+
+```{r load}
+
+```
+
+
+
