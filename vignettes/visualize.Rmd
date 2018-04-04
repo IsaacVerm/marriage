@@ -40,11 +40,8 @@ load(file = paste(data_path, "year_of_birth.RData", sep = "/"))
 For a start, let's not focus on any specific regions and have a look at the most recent data. How is the number of marriages distributed among all ages for all of Belgium?
 
 ```{r distribution_age_marriage}
-recent_marriage <- year_of_birth %>%
-  filter(year == "2014" & type == "marriage")
-
-recent_marriage_belgium <- recent_marriage %>%
-  filter(region == "belgium") 
+recent_marriage_belgium <- year_of_birth %>%
+  filter(year == "2014" & type == "marriage" & region == "belgium")
 
 ggplot(data = recent_marriage_belgium,
        aes(x = age, y = quantity)) +
@@ -56,29 +53,17 @@ ggplot(data = recent_marriage_belgium,
 
 Most people marry in the end of their twenties. There's a small uptick at the end for age 60+ but that's just because multiple ages are binned there. Child marriages aren't allowed in Belgium so no marriages before the age of 18.
 
-Is there a regional difference? We remove the German community from the data set since the number of observations is too limited to make valid conclusions. Since the population of each region differs quite a lot we don't use the raw counts but instead calculate for each age group the percentage of the total number of marriages. Since we round the percentages the total of the percentages can be slightly more or less than 100% (but it's very close). We also removed the binning 60+ group and ages before 18 since there are no marriages in that age range anyway.
+Is there a regional difference? We remove the German community from the data set since the number of observations is too limited to make valid conclusions. Since the population of each region differs quite a lot we don't use the raw counts but instead calculate for each age group the percentage of the total number of marriages. Since we round the percentages the total of the percentages can be slightly more or less than 100% (but it's very close). We also removed the binning 60+ group and ages before 18 since there are no marriages in that age range anyway. This allows us to use age as a continuous variable.
 
 ```{r regional_difference_age_marriage}
-# no german community
-recent_marriage_regions <- recent_marriage %>% 
-  filter(region %in% c("flanders","wallonia","brussels")) %>% 
-  filter(!(age %in% c("60 en +","12-"))) %>% 
-  mutate(age = as.numeric(as.character(age))) %>% 
-  filter(age >= 18)
-
-# percentages
-nr_marriages_by_region <- recent_marriage_regions %>% 
-  group_by(region) %>% 
-  summarise(total_marriages = sum(quantity))
+# no german community and age as continuous variable
+recent_marriage_regions <- year_of_birth %>%
+  filter(year == "2014" & type == "marriage") %>% 
+  only_main_regions %>%
+  age_continuous
 
 recent_marriage_regions <- recent_marriage_regions %>% 
-  left_join(., nr_marriages_by_region) %>% 
-  mutate(percentage = round((quantity/total_marriages)*100,
-                            digits = 2))
-
-recent_marriage_regions %>% 
-  group_by(region) %>% 
-  summarise(total_percentage = sum(percentage)) # check if sum of percentages is 100%
+  percentage_of_total_by_region
 
 # graph
 ggplot(data = recent_marriage_regions,
@@ -94,6 +79,17 @@ People in Brussels seem to marry at a slightly younger age then in Flanders or W
 Would there also be a change from year to year? We only have data for 2013 and 2014 so conclusions will be very limited by definition.
 
 ```{r time_difference_age_marriage}
+# marriage regions
+marriage_regions <- year_of_birth %>% 
+  filter(type == "marriage") %>% 
+  only_main_regions %>%
+  age_continuous
+
+# year-to-year differences
+year_to_year_diff <- marriage_regions %>%
+  group_by(age, region) %>% 
+  summarise(difference = diff(quantity))
+  
 
 ```
 
