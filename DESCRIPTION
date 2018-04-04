@@ -3,7 +3,13 @@ Title: exploratory analysis marriage in Belgium
 Version: 0.0.0.9000
 Authors@R: person("Isaac", "Verminck", email = "isaacverm@gmail.com", role = c("aut", "cre"))
 Description: Exploratory analysis marriage in Belgium.
-Depends: R (>= 3.4.2)
+Depends: 
+    R (>= 3.4.2),
+    purrr,
+    dplyr,
+    knitr,
+    ggplot2,
+    tidyr
 License: GPL-2
 Encoding: UTF-8
 LazyData: true
@@ -11,13 +17,8 @@ RoxygenNote: 6.0.1
 Imports:
     here,
     roxygen2,
-    readxl,
-    dplyr,
-    purrr,
-    ggplot2,
-    tidyr
+    readxl
 Suggests: testthat,
-    knitr,
     rmarkdown,
     covr
 VignetteBuilder: knitr

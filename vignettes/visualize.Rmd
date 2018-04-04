@@ -13,7 +13,7 @@ vignette: >
 
 # rm(list = ls())
 
-library(knitr)
+# library(knitr)
 
 opts_chunk$set(echo=TRUE,
                warning=FALSE,
@@ -39,16 +39,15 @@ For a start, let's not focus on any specific regions and have a look at the most
 
 ```{r bar_age_marriage}
 recent_marriage <- year_of_birth %>%
-  dplyr::filter(year == "2014") %>% 
-  dplyr::filter(type == "marriage")
-
+  filter(year == "2014" & type == "marriage")
 
 recent_marriage_belgium <- recent_marriage %>%
-  dplyr::filter(region == "belgium") 
+  filter(region == "belgium") 
 
-ggplot2::ggplot(data = recent_marriage_belgium, ggplot2::aes(x = age, y = quantity)) +
-  ggplot2::geom_line(group = 1) +
-  ggplot2::theme(axis.text.x = ggplot2::element_text(angle = 90, hjust = 1))
+ggplot(data = recent_marriage_belgium,
+       aes(x = age, y = quantity)) +
+  geom_line(group = 1) +
+  theme(axis.text.x = element_text(angle = 90, hjust = 1))
 
 
 ```
@@ -56,9 +55,10 @@ ggplot2::ggplot(data = recent_marriage_belgium, ggplot2::aes(x = age, y = quanti
 Most people marry in the end of their twenties. Is there a regional difference?
 
 ```{r regional_difference_age_marriage}
-ggplot2::ggplot(data = recent_marriage, ggplot2::aes(x = age, y = quantity)) +
-  ggplot2::geom_line(ggplot2::aes(color = region), group = 1) +
-  ggplot2::theme(axis.text.x = ggplot2::element_text(angle = 90, hjust = 1))
+ggplot(data = recent_marriage,
+       aes(x = age, y = quantity)) +
+  geom_line(aes(color = region), group = 1) +
+  theme(axis.text.x = element_text(angle = 90, hjust = 1))
 
 ```
 

@@ -66,19 +66,19 @@ years <- paste0("201", 3:4)
 rep_years <- rep(years, times = length(types))
 rep_types <- rep(types, each = length(years))
 
-worksheets <- purrr::map2(.x = rep_years,
-                          .y = rep_types,
-                          .f = ~select_worksheet(worksheet = "year_of_birth",
-                                                 year = .x,
-                                                 type = .y)
-                          )
+worksheets <- map2(.x = rep_years,
+                   .y = rep_types,
+                   .f = ~select_worksheet(worksheet = "year_of_birth",
+                                          year = .x,
+                                          type = .y)
+                   )
 
 tidy_args <- list(worksheet = worksheets,
                   year = rep_years,
                   type = rep_types)
-tidy_dfs <- purrr::pmap(tidy_args,
-                        function(worksheet, year, type) tidy_year_of_birth(worksheet, year, type)
-                        )
+tidy_dfs <- pmap(tidy_args,
+                 function(worksheet, year, type) tidy_year_of_birth(worksheet, year, type)
+                 )
 
 year_of_birth <- bind_together(tidy_dfs)
 
