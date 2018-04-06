@@ -1,0 +1,33 @@
+---
+title: "Visualize data"
+author: "Isaac Verminck"
+date: "`r Sys.Date()`"
+output: pdf_document
+vignette: >
+  %\VignetteIndexEntry{Vignette Title}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include=FALSE}
+
+library(knitr)
+
+opts_chunk$set(echo=TRUE,
+               warning=FALSE,
+               message=FALSE,
+               cache=FALSE,
+               fig.width=12,
+               fig.height=8)
+
+devtools::load_all(here::here())
+
+```
+
+```{r load_data}
+
+load(file = paste(data_path, "year_of_birth.RData", sep = "/"))
+
+```
+
+# Visualize data
