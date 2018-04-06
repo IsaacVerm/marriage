@@ -62,6 +62,7 @@ recent_marriage_regions <- year_of_birth %>%
   only_main_regions %>%
   age_continuous
 
+# percentages
 recent_marriage_regions <- recent_marriage_regions %>% 
   percentage_of_total_by_region
 
@@ -80,17 +81,22 @@ Would there also be a change from year to year? We only have data for 2013 and 2
 
 ```{r time_difference_age_marriage}
 # marriage regions
-marriage_regions <- year_of_birth %>% 
-  filter(type == "marriage") %>% 
-  only_main_regions %>%
-  age_continuous
+marriage_regions <- year_of_birth %>%
+  filter(type == "marriage") %>%
+  age_continuous %>% 
+  only_main_regions %>% 
+  percentage_of_total_by_region
 
 # year-to-year differences
-year_to_year_diff <- marriage_regions %>%
-  group_by(age, region) %>% 
-  summarise(difference = diff(quantity))
+marriage_regions <- marriage_regions %>%
+  year_to_year_percentage_differences
+
+# graph
+ggplot(data = marriage_regions, aes(x = age, y = difference)) +
+  geom_path(aes(color = region)) +
+  theme(axis.text.x = element_text(angle = 90, hjust = 1))
   
 
 ```
 
-
+The differences from year to year seem very small and quite random so we can assume there's no difference in the age of marriage between 2013 and 2014.
