@@ -54,13 +54,11 @@ marriage <- year_of_birth %>% # most modelling takes place on the aggregate leve
 
 
 ```{r split_data}
-ind <- 1:nrow(marriage)
-train_ind <- sample(ind,
-                    size = length(ind)*2/3)
-test_ind <- setdiff(ind, train_ind)
+split_data_sets <- split_data(df = marriage,
+                              size_train_set = 0.66)
 
-marriage_train <- slice(marriage, train_ind)
-marriage_test <- slice(marriage, test_ind)
+marriage_train <- split_data_sets$train
+marriage_test <- split_data_sets$test
 
 ```
 
